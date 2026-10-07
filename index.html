@@ -1,39 +1,301 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Downloads</title>
-  <meta name="description" content="Download files from my library">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="bg-glow"></div>
+    <meta charset="UTF-8">
 
-  <main class="container">
-    <header class="hero">
-      <div>
-        <span class="eyebrow">MY FILE LIBRARY</span>
-        <h1>Downloads</h1>
-        <p>Browse the library and download what you need.</p>
-      </div>
-      <div class="file-count" id="fileCount">0 files</div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FakeInfo - Generate Fictional Profiles</title>
+
+    <meta
+        name="description"
+        content="Generate realistic fictional profiles for entertainment, testing, mockups and harmless pranks."
+    >
+
+    <!-- Open Graph metadata -->
+    <meta property="og:title" content="FakeInfo - Generate Fictional Profiles">
+    <meta
+        property="og:description"
+        content="Generate realistic fictional profiles for entertainment, testing, mockups and harmless pranks."
+    >
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="site-header">
+        <div class="container header-inner">
+
+            <a href="#home" class="logo" aria-label="FakeInfo home">
+                FakeInfo
+            </a>
+
+            <button
+                class="mobile-menu-toggle"
+                id="mobileMenuToggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="mainNavigation"
+                aria-label="Open navigation"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNavigation" aria-label="Main navigation">
+                <a href="#home">Home</a>
+                <a href="#generator">Generate</a>
+                <a href="#about">About</a>
+            </nav>
+
+        </div>
     </header>
 
-    <section class="toolbar">
-      <label class="search">
-        <span>⌕</span>
-        <input id="search" type="search" placeholder="Search files..." autocomplete="off">
-      </label>
-      <button id="refresh" class="button secondary">Refresh</button>
-    </section>
+    <main>
 
-    <div id="status" class="status hidden"></div>
-    <section id="fileList" class="file-list"></section>
+        <!-- Hero -->
+        <section class="hero" id="home">
+            <div class="container hero-inner">
 
-    <footer>Fast downloads • S3 compatible storage</footer>
-  </main>
+                <div class="hero-content">
+                    <div class="hero-label">FICTIONAL DATA GENERATOR</div>
 
-  <script src="script.js"></script>
+                    <h1>Generate a Fake Identity</h1>
+
+                    <p>
+                        Create realistic fictional profiles for jokes, mockups,
+                        testing and entertainment.
+                    </p>
+
+                    <div class="hero-controls">
+
+                        <div class="control-group">
+                            <label for="nationality">Nationality</label>
+
+                            <select id="nationality">
+                                <option value="">Random</option>
+                                <option value="US">United States</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="IN">India</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="BR">Brazil</option>
+                                <option value="ES">Spain</option>
+                                <option value="MX">Mexico</option>
+                                <option value="JP">Japan</option>
+                                <option value="KR">South Korea</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="resultCount">Number of people</label>
+
+                            <select id="resultCount">
+                                <option value="1">1 Person</option>
+                                <option value="5">5 People</option>
+                                <option value="10">10 People</option>
+                                <option value="20">20 People</option>
+                            </select>
+                        </div>
+
+                        <button
+                            id="generateButton"
+                            class="button button-primary button-large"
+                            type="button"
+                        >
+                            Generate Fake Person
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="loadingMessage"
+                        class="status-message loading-message"
+                        role="status"
+                        aria-live="polite"
+                        hidden
+                    >
+                        Generating fictional profile...
+                    </div>
+
+                    <div
+                        id="errorMessage"
+                        class="status-message error-message"
+                        role="alert"
+                        hidden
+                    >
+                        <span>Could not generate a profile. Please try again.</span>
+                        <button id="retryButton" class="button button-small" type="button">
+                            Retry
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Generator -->
+        <section class="generator-section" id="generator">
+            <div class="container">
+
+                <div class="section-heading">
+                    <h2>Generated Profiles</h2>
+                    <p>
+                        Every result below is fictional data generated for
+                        testing, entertainment and mockup purposes.
+                    </p>
+                </div>
+
+                <div
+                    id="profilesContainer"
+                    class="profiles-container"
+                    aria-live="polite"
+                >
+                    <!-- Profiles are inserted here by JavaScript -->
+                </div>
+
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-state-icon" aria-hidden="true">?</div>
+
+                    <h3>No fictional profile generated yet</h3>
+
+                    <p>
+                        Select your options above and click
+                        <strong>Generate Fake Person</strong>.
+                    </p>
+                </div>
+
+                <div id="batchActions" class="batch-actions" hidden>
+                    <button
+                        id="copyAllButton"
+                        class="button button-secondary"
+                        type="button"
+                    >
+                        Copy All Profiles
+                    </button>
+
+                    <button
+                        id="downloadAllButton"
+                        class="button button-secondary"
+                        type="button"
+                    >
+                        Download All as TXT
+                    </button>
+
+                    <button
+                        id="newProfilesButton"
+                        class="button button-primary"
+                        type="button"
+                    >
+                        Generate New Profiles
+                    </button>
+
+                    <button
+                        id="resetButton"
+                        class="button button-danger"
+                        type="button"
+                    >
+                        Reset
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About -->
+        <section class="about-section" id="about">
+            <div class="container">
+
+                <div class="about-card">
+
+                    <h2>About FakeInfo</h2>
+
+                    <p>
+                        FakeInfo creates fictional identities using the
+                        Random User API. These profiles are useful for
+                        interface mockups, software testing, fictional
+                        characters, demonstrations and harmless jokes.
+                    </p>
+
+                    <div class="notice-box">
+                        <strong>Important:</strong>
+                        Generated profiles are fictional and intended for
+                        entertainment, testing and mockup purposes.
+                        Do not treat generated information as belonging to
+                        a real person.
+                    </div>
+
+                    <div class="about-grid">
+
+                        <div>
+                            <h3>Client-side only</h3>
+                            <p>
+                                FakeInfo does not require an account, database
+                                or backend. Generation and profile handling
+                                happen directly in your browser.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3>Random User API</h3>
+                            <p>
+                                Profile data is supplied by the Random User
+                                API.
+                            </p>
+
+                            <a
+                                href="https://randomuser.me/documentation"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                View API Documentation
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+
+            <div>
+                <strong>FakeInfo</strong>
+                <span>
+                    generates fictional data using the Random User API.
+                </span>
+            </div>
+
+            <div>
+                Not real people. For entertainment, testing and mockups.
+            </div>
+
+            <div>
+                <a
+                    href="https://randomuser.me/documentation"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Random User API Documentation
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
